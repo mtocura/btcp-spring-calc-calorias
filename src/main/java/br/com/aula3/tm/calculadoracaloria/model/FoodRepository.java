@@ -60,12 +60,12 @@ public class FoodRepository {
         return foodsResponse;
     }
 
-    public void add(Food anuncio) {
+    public void add(Food food) {
         try {
-            List<Food> anuncios = getList();
-            anuncios.add(anuncio);
+            List<Food> foods = getList();
+            foods.add(food);
             PrintWriter out = new PrintWriter(new BufferedWriter(new FileWriter(FILE)));
-            mapper.writeValue(out, anuncios);
+            mapper.writeValue(out, foods);
             out.close();
         } catch (JsonGenerationException e) {
             e.printStackTrace();
