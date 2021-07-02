@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/aula3/tm")
 public class FoodController {
@@ -24,9 +26,20 @@ public class FoodController {
         return ResponseEntity.ok(foodService.findAll());
     }
 
-    @GetMapping("/foods/{nome}")
+    @GetMapping("/foods/name/{nome}")
     public ResponseEntity<?> getFoodByName(@PathVariable String nome) {
         Food food = foodService.findFoodByName(nome);
+
+        if(food != null) {
+            return ResponseEntity.ok(food);
+        }
+
+        return ResponseEntity.badRequest().build();
+    }
+
+    @GetMapping("/foods/calories/{calories}")
+    public ResponseEntity<?> getFoodByName(@PathVariable int calories) {
+        List<Food> food = foodService.findFoodByCalories(calories);
 
         if(food != null) {
             return ResponseEntity.ok(food);
